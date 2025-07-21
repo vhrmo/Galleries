@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <title>R&iacute;m J&uacute;n 2024</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+</head>
+<body>
+<h1>R&iacute;m J&uacute;n 2024</h1>
+
+<div id="map" style="width: 900px; height: 800px;"></div>
+
+<script>
+    let map = L.map('map');
+
+    function style(feature) {
+        return {
+            fillColor: '#e8eaed',
+            weight: 1,
+            opacity: 1,
+            color: '#b3b3b3',
+            dashArray: '3',
+            fillOpacity: 0.6
+        };
+    }
+
+    fetch('geo/rome.geojson')
+        .then(response => response.json())
+        .then(data => {
+            let layer = L.geoJson(data, {style: style});
+            // layer.addTo(map);
+            let bounds = layer.getBounds();
+            map.fitBounds(bounds);
+        });
+
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
+        minZoom: 0,
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        ext: 'png'
+    }).addTo(map);
+
+    var Jawg_Streets = L.tileLayer('https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+        attribution: '<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        minZoom: 0,
+        maxZoom: 22,
+        accessToken: '<your accessToken>'
+    });
+    /***************************************************************************
+     * Handle browser window resize which causes map size change
+     **************************************************************************/
+    function fitMap(){
+        map.fitBounds(skBounds);
+    }
+
+
+    // L.marker([41.9028, 12.4964]).addTo(map)
+    //     .bindPopup('Rím Jún 2024')
+    //     .openPopup();
+</script>
+</body>
+</html>
