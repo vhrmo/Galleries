@@ -8,7 +8,52 @@ function getWidth() {
     );
 }
 
-function initCarousel() {
+const resources = [
+    '../res/unitegallery/css/unite-gallery.css',
+    '../res/jquery-3.7.1/jquery.min.js',
+    '../res/unitegallery/js/unitegallery.min.js',
+    '../res/unitegallery/themes/tiles/ug-theme-tiles.js'
+];
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.type = 'text/javascript';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function loadCSS(href) {
+    return new Promise((resolve, reject) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = href;
+        link.onload = resolve;
+        link.onerror = reject;
+        document.head.appendChild(link);
+    });
+}
+
+/**
+ * Load all resources (CSS and JS) sequentially.
+ * @returns {Promise<string>}
+ */
+async function loadResources() {
+    for (const resource of resources) {
+        if (resource.endsWith('.css')) {
+            await loadCSS(resource);
+        } else {
+            await loadScript(resource);
+        }
+    }
+    return 'All resources loaded';
+}
+
+function initUGCarousel() {
     let count = Math.floor(getWidth() / 200);
     if (count < 3) {
         count = 3;
@@ -34,13 +79,13 @@ function initCarousel() {
     });
 }
 
-function initGallery(selector = ".gallery") {
+function initUGGallery(selector = ".gallery") {
     $(selector).each(function () {
         $(this).unitegallery({
             gallery_width: "100%",
-            theme_gallery_padding:"80",
+            theme_gallery_padding: "80",
             // theme_enable_navigation: false,
-            lightbox_type: "compact",
+            // lightbox_type: "compact",
             tile_enable_border: false,
             // tiles_type:"nested",
             tiles_type: "justified",
@@ -52,7 +97,7 @@ function initGallery(selector = ".gallery") {
     });
 }
 
-function initVideoGallery() {
+function initUGVideoGallery() {
     $(".video-gallery").each(function () {
         $(this).unitegallery({
             gallery_theme: "video"
@@ -70,14 +115,17 @@ function initVideoGallery() {
     });
 }
 
-function initMaterialbox() {
-    var elems = document.querySelectorAll('.materialboxed');
-    M.Materialbox.init(elems, {});
+
+function initUniteGallery() {
+    loadResources().then((values) => {
+        console.log(values);
+        // Unite Gallery inits
+        // initUGCarousel();
+        initUGGallery();
+        // initUGVideoGallery();
+    });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    initCarousel();
-    initGallery();
-    initVideoGallery();
-    initMaterialbox();
-});
+initUniteGallery();
+
+

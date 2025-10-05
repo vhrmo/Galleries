@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <title>Test Gallery - PhotoSwipe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer"/>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px 10%;
+        }
+
+        @media (max-width: 1000px) {
+            body {
+                margin: 20px 10px;
+            }
+        }
+
+        .gallery.photo-stack {
+            /*background-color: whitesmoke;*/
+            /*padding: 10px;*/
+            position: relative;
+            height: 400px;
+            /*overflow: hidden;*/
+        }
+
+        .gallery.photo-stack img {
+            /*max-height: 250px;*/
+            /*max-width: 250px;*/
+            background-color: whitesmoke;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s;
+        }
+
+        .gallery.photo-stack:hover img:hover {
+            z-index: 500 !important;
+            /*background-color: green;*/
+            transform: rotate(0deg)  scale(1.2) !important;
+            transition: all 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<h1>Test Gallery Layout</h1>
+
+<h2>Sample Gallery</h2>
+<div class="gallery photo-stack">
+    <img alt="Test gallery" src="./img/P1087298.jpeg">
+    <img alt="Test gallery" src="./img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./img/kosutka_mapa.jpg">
+
+    <img alt="Test gallery" src="./img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./img/hes_kosutka_1753.jpeg">
+    <img alt="Test gallery" src="./img/hes_kosutka_2481.jpeg">
+    <img alt="Test gallery" src="./img/hes_kosutka_4026.jpeg">
+    <img alt="Test gallery" src="./img/P1087298.jpeg">
+    <img alt="Test gallery" src="./img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./img/kosutka_mapa.jpg">
+    <img alt="Test gallery" src="./img/hes_kosutka_1747.jpeg">
+<!--    <img alt="Test gallery" src="./img/hes_kosutka_1753.jpeg">-->
+<!--    <img alt="Test gallery" src="./img/hes_kosutka_2481.jpeg">-->
+<!--    <img alt="Test gallery" src="./img/hes_kosutka_4026.jpeg">-->
+</div>
+<h2>Sample Gallery</h2>
+<div class="gallery photo-stack">
+    <img alt="Test gallery" src="./img/P1087298.jpeg">
+    <img alt="Test gallery" src="./img/P1087318.jpeg">
+</div>
+
+
+<script type="module" src="../res/page-init-photoswipe.js"></script>
+<script type="module">
+    const stackParams = [
+        {rotate: 2, top: 90, zIndex: 190},
+        {rotate: -3, top: 40, zIndex: 100},
+        {rotate: -6, top: 130, zIndex: 180},
+        {rotate: 4, top: 110, zIndex: 140},
+        {rotate: -6, top: 60, zIndex: 140},
+        {rotate: 4, top: 90, zIndex: 140},
+        {rotate: -4, top: 120, zIndex: 140},
+        {rotate: 2, top: 50, zIndex: 140},
+        {rotate: -4, top: 130, zIndex: 200},
+
+        // {rotate: -2, top: 50, zIndex: 140},
+    ];
+
+    function getOffsetX(container, images) {
+        const containerWidth = container.clientWidth;
+        const offsetX = Math.floor((containerWidth - 220)/images.length);
+        return Math.min(offsetX, 200);
+    }
+
+    function init(container) {
+        const images = Array.from(container.querySelectorAll('img'));
+        if (images.length === 0) return;
+        const offsetX =getOffsetX(container, images);
+        for (let i = 0; i < images.length; i++) {
+            const img = images[i];
+            // img.style.backgroundColor = 'green';
+            img.style.position = 'absolute';
+
+            img.naturalWidth > img.naturalHeight
+                ? img.style.maxHeight = '200px'
+                : img.style.maxHeight = '250px';
+
+            const params = stackParams[i % stackParams.length];
+            const offset = Math.floor(i / stackParams.length) * 300;
+            img.style.top = params.top + 'px';
+            // img.style.left = (params.left + offset) + 'px';
+            img.style.left = (offsetX * i) + 'px';
+            img.style.transform = 'rotate(' + params.rotate + 'deg)';
+            img.style.zIndex = params.zIndex;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.gallery.photo-stack').forEach(gallery => {
+            init(gallery);
+        })
+    })
+    window.addEventListener('resize', () => {
+        document.querySelectorAll('.gallery.photo-stack').forEach(container => {
+            const images = Array.from(container.querySelectorAll('img'));
+            const offsetX = getOffsetX(container, images);
+            for (let i = 0; i < images.length; i++) {
+                const img = images[i];
+                img.style.left = (offsetX * i) + 'px';
+            }
+        })
+    });
+
+</script>
+</body>
+</html>
