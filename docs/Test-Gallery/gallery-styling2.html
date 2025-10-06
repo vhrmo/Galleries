@@ -20,28 +20,39 @@
         }
 
         .gallery.photo-stack {
-            /*background-color: whitesmoke;*/
-            /*padding: 10px;*/
             position: relative;
             height: 400px;
             /*overflow: hidden;*/
         }
 
         .gallery.photo-stack img {
-            /*max-height: 250px;*/
-            /*max-width: 250px;*/
+            max-width: 250px;
+            max-height: 240px;
+            position: absolute;
             background-color: whitesmoke;
             padding: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             transition: all 0.5s;
         }
 
-        .gallery.photo-stack:hover img:hover {
+        .gallery.photo-stack img.hovered {
             z-index: 500 !important;
             /*background-color: green;*/
-            transform: rotate(0deg)  scale(1.2) !important;
+            transform: scale(1.2) !important;
+            /*scale: 1.2 !important;*/
             transition: all 0.5s;
         }
+
+        .gallery.photo-stack img:nth-child(9n+1) { transform: rotate(2deg);  left:20px; top: 90px;  z-index: 190 }
+        .gallery.photo-stack img:nth-child(9n+2) { transform: rotate(-3deg); left:20px; top: 40px;  z-index: 100 }
+        .gallery.photo-stack img:nth-child(9n+3) { transform: rotate(-6deg); left:20px; top: 130px; z-index: 180 }
+        .gallery.photo-stack img:nth-child(9n+4) { transform: rotate(4deg);  left:20px; top: 110px; z-index: 140 }
+        .gallery.photo-stack img:nth-child(9n+5) { transform: rotate(-6deg); left:20px; top: 60px;  z-index: 140 }
+        .gallery.photo-stack img:nth-child(9n+6) { transform: rotate(4deg);  left:20px; top: 90px;  z-index: 140 }
+        .gallery.photo-stack img:nth-child(9n+7) { transform: rotate(-4deg); left:20px; top: 120px; z-index: 140 }
+        .gallery.photo-stack img:nth-child(9n+8) { transform: rotate(2deg);  left:20px; top: 50px;  z-index: 140 }
+        .gallery.photo-stack img:nth-child(9n) { transform: rotate(-4deg);   left:20px; top: 130px; z-index: 200 }
+
     </style>
 
 </head>
@@ -62,7 +73,8 @@
     <img alt="Test gallery" src="./img/P1087318.jpeg">
     <img alt="Test gallery.jpg" src="./img/kosutka_mapa.jpg">
     <img alt="Test gallery" src="./img/hes_kosutka_1747.jpeg">
-<!--    <img alt="Test gallery" src="./img/hes_kosutka_1753.jpeg">-->
+    <img alt="Test gallery" src="./img/P1087318.jpeg">
+    <!--    <img alt="Test gallery" src="./img/hes_kosutka_1753.jpeg">-->
 <!--    <img alt="Test gallery" src="./img/hes_kosutka_2481.jpeg">-->
 <!--    <img alt="Test gallery" src="./img/hes_kosutka_4026.jpeg">-->
 </div>
@@ -75,19 +87,6 @@
 
 <script type="module" src="../res/page-init-photoswipe.js"></script>
 <script type="module">
-    const stackParams = [
-        {rotate: 2, top: 90, zIndex: 190},
-        {rotate: -3, top: 40, zIndex: 100},
-        {rotate: -6, top: 130, zIndex: 180},
-        {rotate: 4, top: 110, zIndex: 140},
-        {rotate: -6, top: 60, zIndex: 140},
-        {rotate: 4, top: 90, zIndex: 140},
-        {rotate: -4, top: 120, zIndex: 140},
-        {rotate: 2, top: 50, zIndex: 140},
-        {rotate: -4, top: 130, zIndex: 200},
-
-        // {rotate: -2, top: 50, zIndex: 140},
-    ];
 
     function getOffsetX(container, images) {
         const containerWidth = container.clientWidth;
@@ -95,44 +94,33 @@
         return Math.min(offsetX, 200);
     }
 
-    function init(container) {
+    function layoutPhotos(container) {
         const images = Array.from(container.querySelectorAll('img'));
         if (images.length === 0) return;
         const offsetX =getOffsetX(container, images);
         for (let i = 0; i < images.length; i++) {
             const img = images[i];
-            // img.style.backgroundColor = 'green';
-            img.style.position = 'absolute';
-
-            img.naturalWidth > img.naturalHeight
-                ? img.style.maxHeight = '200px'
-                : img.style.maxHeight = '250px';
-
-            const params = stackParams[i % stackParams.length];
-            const offset = Math.floor(i / stackParams.length) * 300;
-            img.style.top = params.top + 'px';
-            // img.style.left = (params.left + offset) + 'px';
             img.style.left = (offsetX * i) + 'px';
-            img.style.transform = 'rotate(' + params.rotate + 'deg)';
-            img.style.zIndex = params.zIndex;
+
+            const initialized = img.dataset.initialized;
+            if (!initialized) {
+                img.addEventListener('mouseenter', (e) => {
+                    images.forEach(im => im.classList.remove('hovered'));
+                    img.classList.add('hovered');
+                });
+                img.dataset.initialized = 'true';
+            }
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.gallery.photo-stack').forEach(gallery => {
-            init(gallery);
-        })
-    })
-    window.addEventListener('resize', () => {
+    function layoutPhotoGalleries() {
         document.querySelectorAll('.gallery.photo-stack').forEach(container => {
-            const images = Array.from(container.querySelectorAll('img'));
-            const offsetX = getOffsetX(container, images);
-            for (let i = 0; i < images.length; i++) {
-                const img = images[i];
-                img.style.left = (offsetX * i) + 'px';
-            }
+            layoutPhotos(container);
         })
-    });
+    }
+
+    document.addEventListener('DOMContentLoaded', layoutPhotoGalleries);
+    window.addEventListener('resize', layoutPhotoGalleries);
 
 </script>
 </body>
