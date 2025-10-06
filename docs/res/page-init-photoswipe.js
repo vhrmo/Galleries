@@ -1,6 +1,8 @@
 import PhotoSwipeLightbox from './photoswipe/photoswipe-lightbox.esm.js';
 import PhotoSwipe from './photoswipe/photoswipe.esm.js';
 
+let zIndex = 100;
+
 function loadCSS() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -28,6 +30,46 @@ function initPhotoSwipe() {
         }
         return itemData;
     });
+
+    /********************************************************************************
+     * Highlight current photo in the photo stack when slide changes in PhotoSwipe
+     ********************************************************************************/
+    // Keep track of current gallery
+    let currentGallery = null;
+
+    // When a gallery item is opened
+    lightbox.on('itemData', (e) => {
+        // e.itemData.element is the <a> tag that was clicked
+        const linkEl = e.itemData.element;
+        currentGallery = linkEl.closest('.photoswipe'); // find its parent gallery
+    });
+
+    // When slide changes
+    lightbox.on('change', () => {
+        const pswp = lightbox.pswp;
+        const currSlide = pswp.currSlide;
+        const currIndex = currSlide.index;
+
+        if (currentGallery) {
+            // Highlight or update thumbnails in that gallery only
+            let images = Array.from(currentGallery.querySelectorAll(':scope > img'));
+            if (images.length === 0) images = Array.from(currentGallery.querySelectorAll(':scope > div'));
+            if (images.length === 0) return;
+
+            images.forEach((thumb, i) => {
+                if (i === currIndex) {
+                    thumb.style.zIndex = zIndex++;
+                    thumb.classList.add('hovered');
+                } else {
+                    thumb.classList.remove('hovered');
+                }
+            });
+        }
+    });
+    /********************************************************************************
+     * End of photo stack related code
+     ********************************************************************************/
+
 
     lightbox.init();
 }
@@ -129,7 +171,8 @@ function layoutPhotoStacks() {
     }
 
     function layoutPhotos(container) {
-        const images = Array.from(container.querySelectorAll('img'));
+        let images = Array.from(container.querySelectorAll(':scope > img'));
+        if (images.length === 0) images = Array.from(container.querySelectorAll(':scope > div'));
         if (images.length === 0) return;
         const offsetX = getOffsetX(container, images);
         for (let i = 0; i < images.length; i++) {
@@ -141,6 +184,7 @@ function layoutPhotoStacks() {
                 img.addEventListener('mouseenter', (e) => {
                     images.forEach(im => im.classList.remove('hovered'));
                     img.classList.add('hovered');
+                    img.style.zIndex = zIndex++;
                 });
                 img.dataset.initialized = 'true';
             }

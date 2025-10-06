@@ -68,30 +68,40 @@ div:has(> .scrollable-photo-strip) {
     /*overflow: hidden;*/
 }
 
+/* if img enclosed in a div, add photo frame */
+.photo-stack > div:has(> img) {
+    padding: 8px;
+}
+
 .photo-stack img {
     max-width: 250px;
     max-height: 240px;
+}
+
+/* style immediate children only */
+.photo-stack > img, .photo-stack > div {
     position: absolute;
     background-color: whitesmoke;
-    padding: 10px;
+    /*padding: 10px;*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: all 0.5s;
 }
 
-.photo-stack img.hovered {
-    z-index: 500 !important;
+/* bring hovered photo to front and scale it up */
+.photo-stack > .hovered {
+    z-index: 1500 !important;
     /*background-color: green;*/
     transform: scale(1.2) !important;
     /*scale: 1.2 !important;*/
     transition: all 0.5s;
 }
 
-.photo-stack img:nth-child(9n+1) { transform: rotate(2deg);  left:20px; top: 90px;  z-index: 190 }
-.photo-stack img:nth-child(9n+2) { transform: rotate(-3deg); left:20px; top: 40px;  z-index: 100 }
-.photo-stack img:nth-child(9n+3) { transform: rotate(-6deg); left:20px; top: 130px; z-index: 180 }
-.photo-stack img:nth-child(9n+4) { transform: rotate(4deg);  left:20px; top: 110px; z-index: 140 }
-.photo-stack img:nth-child(9n+5) { transform: rotate(-6deg); left:20px; top: 60px;  z-index: 140 }
-.photo-stack img:nth-child(9n+6) { transform: rotate(4deg);  left:20px; top: 90px;  z-index: 140 }
-.photo-stack img:nth-child(9n+7) { transform: rotate(-4deg); left:20px; top: 120px; z-index: 140 }
-.photo-stack img:nth-child(9n+8) { transform: rotate(2deg);  left:20px; top: 50px;  z-index: 140 }
-.photo-stack img:nth-child(9n) { transform: rotate(-4deg);   left:20px; top: 130px; z-index: 200 }
+.photo-stack > :nth-child(9n+1) { transform: rotate(2deg);  left:20px; top: 90px;  z-index: 90 }
+.photo-stack > :nth-child(9n+2) { transform: rotate(-3deg); left:20px; top: 40px;  z-index: 10 }
+.photo-stack > :nth-child(9n+3) { transform: rotate(-6deg); left:20px; top: 130px; z-index: 80 }
+.photo-stack > :nth-child(9n+4) { transform: rotate(4deg);  left:20px; top: 110px; z-index: 40 }
+.photo-stack > :nth-child(9n+5) { transform: rotate(-6deg); left:20px; top: 60px;  z-index: 40 }
+.photo-stack > :nth-child(9n+6) { transform: rotate(4deg);  left:20px; top: 90px;  z-index: 40 }
+.photo-stack > :nth-child(9n+7) { transform: rotate(-4deg); left:20px; top: 120px; z-index: 40 }
+.photo-stack > :nth-child(9n+8) { transform: rotate(2deg);  left:20px; top: 50px;  z-index: 40 }
+.photo-stack > :nth-child(9n)   { transform: rotate(-4deg);   left:20px; top: 130px; z-index: 95 }
