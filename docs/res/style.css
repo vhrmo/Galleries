@@ -1,0 +1,97 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px 10%;
+}
+
+@media (max-width: 1000px) {
+    body {
+        margin: 20px 10px;
+    }
+}
+
+.gray {
+    filter: grayscale(100%);
+}
+
+/******************************************************************************
+ * Thumbnails gallery styles
+ *******************************************************************************/
+
+div:has(> .thumbnails) {
+    padding: 10px;
+    background-color: grey;
+}
+
+.thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.thumbnails img {
+    max-height: 200px;
+    transition: all 0.5s;
+}
+
+/******************************************************************************
+ * Scrollable photo strip styles
+ *******************************************************************************/
+
+/* Style only the parent div that contains the scrollable-photo-strip class */
+div:has(> .scrollable-photo-strip) {
+    padding: 0 10px;
+    background-color: grey;
+}
+
+.scrollable-photo-strip {
+    /*background-color: grey;*/
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px 0 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.scrollable-photo-strip img {
+    height: 200px;
+}
+
+/******************************************************************************
+ * Photo stack styles
+ *******************************************************************************/
+
+.photo-stack {
+    position: relative;
+    height: 400px;
+    /*overflow: hidden;*/
+}
+
+.photo-stack img {
+    max-width: 250px;
+    max-height: 240px;
+    position: absolute;
+    background-color: whitesmoke;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s;
+}
+
+.photo-stack img.hovered {
+    z-index: 500 !important;
+    /*background-color: green;*/
+    transform: scale(1.2) !important;
+    /*scale: 1.2 !important;*/
+    transition: all 0.5s;
+}
+
+.photo-stack img:nth-child(9n+1) { transform: rotate(2deg);  left:20px; top: 90px;  z-index: 190 }
+.photo-stack img:nth-child(9n+2) { transform: rotate(-3deg); left:20px; top: 40px;  z-index: 100 }
+.photo-stack img:nth-child(9n+3) { transform: rotate(-6deg); left:20px; top: 130px; z-index: 180 }
+.photo-stack img:nth-child(9n+4) { transform: rotate(4deg);  left:20px; top: 110px; z-index: 140 }
+.photo-stack img:nth-child(9n+5) { transform: rotate(-6deg); left:20px; top: 60px;  z-index: 140 }
+.photo-stack img:nth-child(9n+6) { transform: rotate(4deg);  left:20px; top: 90px;  z-index: 140 }
+.photo-stack img:nth-child(9n+7) { transform: rotate(-4deg); left:20px; top: 120px; z-index: 140 }
+.photo-stack img:nth-child(9n+8) { transform: rotate(2deg);  left:20px; top: 50px;  z-index: 140 }
+.photo-stack img:nth-child(9n) { transform: rotate(-4deg);   left:20px; top: 130px; z-index: 200 }

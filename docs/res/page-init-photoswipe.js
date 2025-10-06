@@ -9,9 +9,12 @@ function loadCSS() {
     document.head.appendChild(link);
 }
 
-function init() {
+/************************************************************************
+ * PhotoSwipe lightbox initialization
+ ************************************************************************/
+function initPhotoSwipe() {
     const lightbox = new PhotoSwipeLightbox({
-        gallery: '.gallery',
+        gallery: '.photoswipe',
         children: 'img',
         pswpModule: PhotoSwipe
     });
@@ -30,7 +33,10 @@ function init() {
 }
 
 
-function justifyImagesInGallery(container) {
+/************************************************************************
+ * Justified image gallery
+ ************************************************************************/
+function justifyImagesInContainer(container) {
     // images are lined up to multiple rows
     // images in each row should be justified to fill the entire width of the container
     // each image should keep its aspect ratio
@@ -95,10 +101,10 @@ function justifyImagesInGallery(container) {
 }
 
 function initJustifiedGalleries() {
-    const galleries = document.querySelectorAll('.gallery.justified');
+    const galleries = document.querySelectorAll('.thumbnails.justified');
     function resizeImages() {
         galleries.forEach(gallery => {
-            justifyImagesInGallery(gallery);
+            justifyImagesInContainer(gallery);
         });
     }
     resizeImages();
@@ -110,10 +116,50 @@ function initJustifiedGalleries() {
     }
 }
 
+
+/************************************************************************
+ * Photo stack layout
+ ************************************************************************/
+function layoutPhotoStacks() {
+
+    function getOffsetX(container, images) {
+        const containerWidth = container.clientWidth;
+        const offsetX = Math.floor((containerWidth - 220)/images.length);
+        return Math.min(offsetX, 200);
+    }
+
+    function layoutPhotos(container) {
+        const images = Array.from(container.querySelectorAll('img'));
+        if (images.length === 0) return;
+        const offsetX = getOffsetX(container, images);
+        for (let i = 0; i < images.length; i++) {
+            const img = images[i];
+            img.style.left = (offsetX * i) + 'px';
+
+            const initialized = img.dataset.initialized;
+            if (!initialized) {
+                img.addEventListener('mouseenter', (e) => {
+                    images.forEach(im => im.classList.remove('hovered'));
+                    img.classList.add('hovered');
+                });
+                img.dataset.initialized = 'true';
+            }
+        }
+    }
+
+    document.querySelectorAll('.photo-stack').forEach(container => {
+        layoutPhotos(container);
+    })
+}
+
+
+
 loadCSS();
 document.addEventListener('DOMContentLoaded', function () {
-    init();
+    initPhotoSwipe();
     initJustifiedGalleries();
+    layoutPhotoStacks();
 });
+window.addEventListener('resize', layoutPhotoStacks);
 
 
