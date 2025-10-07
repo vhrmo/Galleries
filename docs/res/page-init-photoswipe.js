@@ -11,6 +11,15 @@ function loadCSS() {
     document.head.appendChild(link);
 }
 
+/**
+ * Returns the image elements (img or div) that are direct children of the container
+ */
+function getImageElements(container) {
+    let images = Array.from(container.querySelectorAll(':scope > img'));
+    if (images.length === 0) images = Array.from(container.querySelectorAll(':scope > div'));
+    return images;
+}
+
 /************************************************************************
  * PhotoSwipe lightbox initialization
  ************************************************************************/
@@ -52,8 +61,7 @@ function initPhotoSwipe() {
 
         if (currentGallery) {
             // Highlight or update thumbnails in that gallery only
-            let images = Array.from(currentGallery.querySelectorAll(':scope > img'));
-            if (images.length === 0) images = Array.from(currentGallery.querySelectorAll(':scope > div'));
+            const images = getImageElements(currentGallery);
             if (images.length === 0) return;
 
             images.forEach((thumb, i) => {
@@ -142,7 +150,7 @@ function justifyImagesInContainer(container) {
     }
 }
 
-function initJustifiedGalleries() {
+function initJustifiedThumbnailGalleries() {
     const galleries = document.querySelectorAll('.thumbnails.justified');
     function resizeImages() {
         galleries.forEach(gallery => {
@@ -171,8 +179,7 @@ function layoutPhotoStacks() {
     }
 
     function layoutPhotos(container) {
-        let images = Array.from(container.querySelectorAll(':scope > img'));
-        if (images.length === 0) images = Array.from(container.querySelectorAll(':scope > div'));
+        const images = getImageElements(container);
         if (images.length === 0) return;
         const offsetX = getOffsetX(container, images);
         for (let i = 0; i < images.length; i++) {
@@ -181,7 +188,7 @@ function layoutPhotoStacks() {
 
             const initialized = img.dataset.initialized;
             if (!initialized) {
-                img.addEventListener('mouseenter', (e) => {
+                img.addEventListener('mouseenter', () => {
                     images.forEach(im => im.classList.remove('hovered'));
                     img.classList.add('hovered');
                     img.style.zIndex = zIndex++;
@@ -201,7 +208,7 @@ function layoutPhotoStacks() {
 loadCSS();
 document.addEventListener('DOMContentLoaded', function () {
     initPhotoSwipe();
-    initJustifiedGalleries();
+    initJustifiedThumbnailGalleries();
     layoutPhotoStacks();
 });
 window.addEventListener('resize', layoutPhotoStacks);
