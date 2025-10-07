@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <title>Test Gallery - PhotoSwipe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer"/>
+
+    <link rel="stylesheet" href="./res/style.css">
+</head>
+<body>
+<h1>Sample Gallery Layouts</h1>
+
+<h2>Scrollable photo strip</h2>
+<ul>
+    <li>Initialized with PhotoSwipe to be able to browse through the photo library</li>
+</ul>
+<p></p>
+<div class="scrollable-photo-strip photoswipe">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+</div>
+
+<h2>Scrollable photo strip with left and right border</h2>
+<ul>
+    <li>Initialized with PhotoSwipe to be able to browse through the photo library.</li>
+    <li>Padding on left and right side can be achieved by enclosing photo strip in a DIV</li>
+</ul>
+<div>
+    <div class="scrollable-photo-strip photoswipe">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+        <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+    </div>
+</div>
+
+<h2>Photo stack gallery</h2>
+<div class="photo-stack photoswipe">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+</div>
+
+<h3>... photos with frame ...</h3>
+<div class="photo-stack photoswipe">
+    <div><img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg"></div>
+    <div><img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg"></div>
+    <div><img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg"></div>
+    <div><img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg"></div>
+</div>
+
+<h2>Thumbnails Gallery</h2>
+<ul>
+    <li>Use <code>thumbnails</code> class to create thumbnails container.</li>
+    <li>Add <code>justified</code> to justify thumbnails within the container.</li>
+    <li>Add <code>photoswipe</code> class to init PhotoSwipe on image click.</li>
+</ul>
+<pre>
+    &lt;div class="thumbnails justified photoswipe"&gt;
+        &lt;img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+        &lt;img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+        ...
+    &lt;/div&gt;
+</pre>
+<div class="thumbnails justified photoswipe">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+    <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+    <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+</div>
+
+<h3>... with gray background ...</h3>
+<div>
+    <div class="thumbnails justified photoswipe">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+        <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087298.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/P1087318.jpeg">
+        <img alt="Test gallery.jpg" src="./Test-Gallery/img/kosutka_mapa.jpg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1747.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_1753.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_2481.jpeg">
+        <img alt="Test gallery" src="./Test-Gallery/img/hes_kosutka_4026.jpeg">
+    </div>
+</div>
+
+
+<script type="module" src="./res/page-init-photoswipe.js"></script>
+</body>
+</html>
