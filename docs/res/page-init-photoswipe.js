@@ -128,7 +128,7 @@ function justifyImagesInContainer(container) {
             for (let i = 0; i < currentRow.length; i++) {
                 const newWidth = Math.floor(currentRow[i].scaledWidth * resizeRatio);
                 const newHeight = Math.floor(currentRow[i].scaledHeight * resizeRatio);
-                console.log(newWidth, newHeight);
+                // console.log(newWidth, newHeight);
                 currentRow[i].img.style.width = `${newWidth}px`;
                 currentRow[i].img.style.height = `${newHeight}px`;
             }
